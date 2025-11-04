@@ -164,12 +164,12 @@ export default function ProductPage() {
               />
               <h3 className="text-xl font-bold">{item.name}</h3>
               {/* Dynamic link based on category */}
-              <Link
-                href={`/${item.category}/${item.slug}`}
+              <button
+                
                 className="bg-orange-500 hover:bg-orange-600 text-white uppercase text-sm tracking-widest px-6 py-3"
               >
                 See Product
-              </Link>
+              </button>
             </div>
           ))}
         </div>

@@ -54,7 +54,7 @@ export default function FeaturedZX9() {
           truly remarkable sound.
         </p>
         <Link
-          href="/speakers/zx9"
+          href="/speakers"
           className="bg-black text-white px-8 py-3 uppercase tracking-widest font-semibold hover:bg-[#4C4C4C] transition rounded-md"
         >
           See Product

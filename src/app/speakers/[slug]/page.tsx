@@ -161,12 +161,12 @@ export default function ProductPage() {
                 className="rounded-lg w-full object-cover"
               />
               <h3 className="text-xl font-bold">{item.name}</h3>
-              <Link
-                href={`/speakers/${product.slug}`}
+              <button
+                
                 className="bg-orange-500 hover:bg-orange-600 text-white uppercase text-sm tracking-widest px-6 py-3"
               >
                 See Product
-              </Link>
+              </button>
             </div>
           ))}
         </div>

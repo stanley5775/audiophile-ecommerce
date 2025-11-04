@@ -20,7 +20,7 @@ export default function FeaturedZX7() {
           ZX7 Speaker
         </h2>
         <Link
-          href="/speakers/zx7"
+          href="/speakers"
           className="mt-8 border border-black text-black px-6 py-2 tracking-widest uppercase font-semibold hover:bg-black hover:text-white transition"
         >
           See Product
