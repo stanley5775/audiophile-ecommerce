@@ -49,7 +49,7 @@ export default function Hero() {
           </p>
 
           <Link
-            href="/product/xx99-mark-two"
+            href="/headphones"
             className="bg-orange-600 text-white uppercase tracking-widest px-8 py-4 hover:bg-orange-500 transition-all"
           >
             See Product

@@ -30,7 +30,7 @@
     "**/*.mts",
     "**/*.ts",
     "**/*.tsx"
-, "src/app/api/sendOrderEmail/route.js"  ],
+, "src/app/api/sendOrderEmail/route.ts"  ],
   "exclude": [
     "node_modules"
   ]
