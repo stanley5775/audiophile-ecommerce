@@ -38,43 +38,32 @@ const handleSubmit = async (e: React.FormEvent) => {
   e.preventDefault();
   if (!validate()) return;
 
-  // Create order data
-  const subtotal = cart.reduce(
-    (acc, item) => acc + item.price * item.quantity,
-    0
-  );
-  const shipping = 50;
-  const grandTotal = subtotal + shipping;
+  const orderId = Math.floor(Math.random() * 1000000).toString();
 
-  const orderId = Math.floor(Math.random() * 1000000); // simple random order ID
   const orderData = {
-    orderId,
     customer: form,
     items: cart,
-    subtotal,
-    shipping,
-    grandTotal,
+    subtotal: cart.reduce((acc, item) => acc + item.price * item.quantity, 0),
+    shipping: 50,
+    grandTotal:
+      cart.reduce((acc, item) => acc + item.price * item.quantity, 0) + 50,
+    orderId,
   };
 
   try {
-    // Send order confirmation email
     const res = await fetch("/api/sendOrderEmail", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(orderData),
     });
 
-    if (!res.ok) {
-      throw new Error("Email sending failed");
-    }
+    if (!res.ok) throw new Error("Failed to send confirmation email");
 
-    console.log("Order submitted:", orderData);
-
+    alert("Order placed! Confirmation email sent successfully.");
     clearCart();
-    alert("Order placed! Check your email for confirmation.");
   } catch (err) {
-    console.error(" Error submitting order:", err);
-    alert("Something went wrong while placing your order.");
+    console.error("Error sending email:", err);
+    alert("Something went wrong while sending the confirmation email.");
   }
 };
 
