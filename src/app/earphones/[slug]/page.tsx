@@ -36,7 +36,7 @@ export default function ProductPage() {
   if (!product) return <p className="text-center py-20 text-gray-500">Product not found</p>;
 
   return (
-    <main className="px-6 md:px-16 lg:px-32 py-20">
+    <main className="px-6 md:px-16 lg:px-32 py-20 mt-12 md:mt-32">
       <Link
         href={`/earphones`}
         className=" hover:text-orange-600 text-gray-600 text-sm mb-20"
@@ -87,7 +87,10 @@ export default function ProductPage() {
           >
             Add to Cart
           </button>
-           <CartDrawer isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
+          <CartDrawer
+            isOpen={isCartOpen}
+            onClose={() => setIsCartOpen(false)}
+          />
         </div>
       </div>
 
@@ -164,10 +167,7 @@ export default function ProductPage() {
               />
               <h3 className="text-xl font-bold">{item.name}</h3>
               {/* Dynamic link based on category */}
-              <button
-                
-                className="bg-orange-500 hover:bg-orange-600 text-white uppercase text-sm tracking-widest px-6 py-3"
-              >
+              <button className="bg-orange-500 hover:bg-orange-600 text-white uppercase text-sm tracking-widest px-6 py-3">
                 See Product
               </button>
             </div>

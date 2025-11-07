@@ -4,14 +4,16 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { ShoppingCart, Menu, X } from "lucide-react";
-
+import { useCart } from "../context/CartContext";
+import CartDrawer from "./CartDrawer";
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
-  
+  const { getCartCount } = useCart();
+  const [isCartOpen, setisCartOpen] = useState(false);
 
   return (
-    <header className="w-full absolute top-0 left-0 z-50 bg-transparent">
+    <header className="w-full fixed top-0 left-0 z-50 bg-black bg-opacity-90 backdrop-blur-sm">
       <nav className="max-w-6xl mx-auto flex items-center justify-between px-6 py-6 border-b border-white/20">
         {/* Left Section — Menu icon (Mobile only) */}
         <div className="flex items-center gap-4">
@@ -22,7 +24,7 @@ export default function Navbar() {
           >
             {open ? <X size={28} /> : <Menu size={28} />}
           </button>
-    
+
           {/* Logo */}
           <Link href="/">
             <Image
@@ -51,13 +53,23 @@ export default function Navbar() {
           </li>
         </ul>
 
-        {/* Cart icon (both mobile and desktop) */}
-        <button
-          aria-label="Cart" className="text-white">
-          <ShoppingCart size={24} />
-        </button>
-        
+        {/* Cart icon with badge */}
+        <div className="relative">
+          <button
+            onClick={()=> setisCartOpen(true)}
+            aria-label="Cart" className="text-white">
+            <ShoppingCart size={24} />
+          </button>
+
+          {/* ✅ Cart item count badge */}
+          {getCartCount() > 0 && (
+            <span className="absolute -top-2 -right-2 bg-[#D87D4A] text-white text-xs font-bold rounded-full px-2 py-0.5">
+              {getCartCount()}
+            </span>
+          )}
+        </div>
       </nav>
+      <CartDrawer isOpen={isCartOpen} onClose={()=>setisCartOpen(false)} />
 
       {/* Mobile Menu Drawer */}
       {open && (
@@ -85,10 +97,7 @@ export default function Navbar() {
             </li>
           </ul>
         </div>
-        
       )}
-      
     </header>
-    
   );
 }

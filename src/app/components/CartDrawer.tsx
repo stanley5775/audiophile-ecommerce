@@ -3,21 +3,27 @@ import { useCart } from "../context/CartContext";
 import Image from "next/image";
 import Link from "next/link";
 import { X } from "lucide-react";
+import { createPortal } from "react-dom";
+import { useEffect, useState } from "react";
 
 type CartDrawerProps = {
   isOpen: boolean;
   onClose: () => void;
 };
-
 export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
-  const { cart, addToCart, removeFromCart, clearCart } = useCart();
-
-  // Calculate total
+  const { cart, addToCart, removeFromCart } = useCart();
   const total = cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
+  const [mounted, setMounted] = useState(false);
 
-  return (
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) return null;
+
+  return createPortal(
     <div
-      className={`fixed inset-0 bg-black/50 z-50 transition-opacity ${
+      className={`fixed inset-0 bg-black/50 z-[9999] transition-opacity ${
         isOpen
           ? "opacity-100 pointer-events-auto"
           : "opacity-0 pointer-events-none"
@@ -25,12 +31,14 @@ export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
       onClick={onClose}
     >
       <div
-        className={`      absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2
-      bg-white p-6 flex flex-col transition-transform rounded-lg
-      w-full max-w-md md:max-w-md lg:max-w-96
-      ${isOpen ? "scale-100" : "scale-95"}
-      lg:top-0 lg:left-auto lg:right-0 lg:translate-x-0 lg:translate-y-0
-    `}
+        className={`fixed bg-white p-6 flex flex-col transition-transform rounded-lg
+          w-[90%] max-w-md
+          ${isOpen ? "scale-100" : "scale-95"}
+          transform
+          top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2
+          md:top-0 md:right-0 md:left-auto md:translate-x-0 md:translate-y-0 md:rounded-none
+          ${isOpen ? "md:translate-x-0" : "md:translate-x-full"}
+        `}
         onClick={(e) => e.stopPropagation()}
       >
         <h2 className="text-xl font-bold mb-6 flex justify-between items-center">
@@ -62,7 +70,7 @@ export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
                 <div className="flex-1">
                   <p className="font-bold">{item.name}</p>
                   <p className="text-gray-500">
-                    $ {item.price} x {item.quantity} = ${" "}
+                    ${item.price} x {item.quantity} = $
                     {item.price * item.quantity}
                   </p>
                 </div>
@@ -91,10 +99,9 @@ export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
           </div>
         )}
 
-        {/* Cart Summary */}
         <div className="mt-6 border-t pt-4">
           <p className="flex justify-between font-bold">
-            Total <span>$ {total}</span>
+            Total <span>${total}</span>
           </p>
           <Link
             href="/checkout"
@@ -105,6 +112,7 @@ export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
           </Link>
         </div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }

@@ -3,45 +3,57 @@ import nodemailer from "nodemailer";
 export async function POST(req: Request) {
   try {
     const body = await req.json();
-    const { customer, items, subtotal, shipping, grandTotal, orderId } = body;
 
-    // Create transporter inside the route
+    const { customer, items, orderId, subtotal, shipping, grandTotal } = body;
+
+    // Create the Nodemailer transport
     const transporter = nodemailer.createTransport({
-      host: "smtp.gmail.com",
+      host: "smtp.gmail.com", // or your mail host
       port: 465,
-      service: "true",
+      secure: true, // true for port 465, false for 587
       auth: {
         user: process.env.EMAIL_USER,
         pass: process.env.EMAIL_PASS,
       },
     });
 
-    const mailOptions = {
-      from: '"Audiophile" <${process.env.EMAIL_USER}>',
-      to: customer.email,
-      subject: 'Order Confirmation #${orderId}',
-      html: `
-        <div style="font-family: sans-serif; max-width: 600px; margin: auto; padding: 20px;">
-          <h1 style="color: #D87D4A;">Thank you for your order, ${customer.name}!</h1>
-          <p>Your order <strong>#${orderId}</strong> has been received.</p>
-          <ul>
-            ${items.map(
-              (item: any) =>
-               `<li>${item.name} x ${item.quantity} - $${item.price * item.quantity}</li>`
-            ).join("")}
-          </ul>
-          <p><strong>Subtotal:</strong> $${subtotal}</p>
-          <p><strong>Shipping:</strong> $${shipping}</p>
-          <p><strong>Grand Total:</strong> $${grandTotal}</p>
-        </div>
-      `,
-    };
+    // 2️⃣ Build email content
+    const itemList = items
+      .map(
+        (item: any) =>
+          `<li>${item.name} (${item.quantity} × $${item.price})</li>`
+      )
+      .join("");
 
-    await transporter.sendMail(mailOptions);
+    const html = `
+      <div style="font-family:Arial, sans-serif;">
+        <h2>Order Confirmation - #${orderId}</h2>
+        <p>Thank you for your purchase, <b>${customer.name}</b>!</p>
+        <p>Here's a summary of your order:</p>
+        <ul>${itemList}</ul>
+        <p><b>Subtotal:</b> $${subtotal}</p>
+        <p><b>Shipping:</b> $${shipping}</p>
+        <p><b>Grand Total:</b> $${grandTotal}</p>
+        <hr />
+        <p>Delivery Address:</p>
+        <p>${customer.address}, ${customer.city}, ${customer.country}</p>
+      </div>
+    `;
 
-    return new Response(JSON.stringify({ message: "Email sent successfully" }), { status: 200 });
+    // 3️⃣ Send the email
+    await transporter.sendMail({
+      from: `"Audiophile Store" <${process.env.EMAIL_USER}>`,
+      to: customer.email, // customer's email
+      subject: `Your Order Confirmation #${orderId}`,
+      html,
+    });
+
+    return Response.json({ success: true, message: "Email sent successfully" });
   } catch (error) {
-    console.error("Email sending failed:", error);
-    return new Response(JSON.stringify({ message: "Failed to send email" }), { status: 500 });
+    console.error("Error sending email:", error);
+    return Response.json(
+      { success: false, message: "Failed to send email" },
+      { status: 500 }
+    );
   }
 }

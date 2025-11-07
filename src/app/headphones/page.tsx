@@ -31,7 +31,7 @@ export default function HeadphonesPage() {
   return (
     <main>
       {/* ===== Header Section ===== */}
-      <section className="bg-black text-white text-center py-24">
+      <section className="bg-black text-white text-center py-12 mt-12">
         <h1 className="text-3xl md:text-4xl font-bold tracking-widest uppercase">
           Headphones
         </h1>

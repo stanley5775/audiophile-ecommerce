@@ -18,14 +18,12 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body
-        className={manrope.className}
-      >
-        <Nav />
-        <main>
-          <CartProvider>{children}</CartProvider>
-        </main>
-        <Footer />
+      <body className={manrope.className}>
+        <CartProvider>
+          <Nav />
+          <main>{children}</main>
+          <Footer />
+        </CartProvider>
       </body>
     </html>
   );

@@ -30,7 +30,7 @@ export default function ProductPage() {
   if (!product) return <p className="text-center py-20">Product not found</p>;
 
   return (
-    <main className="px-6 md:px-16 lg:px-32 py-20">
+    <main className="px-6 md:px-16 lg:px-32 py-20 mt-12 md:mt-32">
       <Link
         href={`/headphones`}
         className=" hover:text-orange-600 text-gray-600 text-sm mb-12"
