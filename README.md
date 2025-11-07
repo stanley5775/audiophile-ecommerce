@@ -1,36 +1,73 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## Getting Started
+---
 
-First, run the development server:
+Audiophile Project – Stage 3 Task
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+ Project Overview
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+The Audiophile Project is an e-commerce web application for audio enthusiasts, designed to provide a seamless shopping experience for high-quality audio products. This stage focuses on implementing a fully responsive interface, dynamic product pages, and real-time CRUD functionality with theme switching capabilities.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+The design is based on the provided Figma mockups, with attention to pixel-perfect layout, responsive design, and user-friendly navigation.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+Features
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Responsive Design: Works perfectly across mobile, tablet, and desktop devices.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Dynamic Product Pages: Each product has a detailed page displaying features, images, and related products.
 
-## Deploy on Vercel
+CRUD Operations: Add, update, and delete products (for admin functionality).
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Theme Switching: Light and dark mode toggle for improved user experience.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Real-time Updates: Seamless frontend-backend integration for instant changes.
+
+Navigation & Routing: Smooth navigation between homepage, product pages, and cart.
+
+Accessibility: Optimized for keyboard navigation and screen readers.
+
+
+
+---
+
+ Tech Stack
+
+Frontend:
+
+Next.js (React framework)
+
+Tailwind CSS for styling
+
+React Hooks for state management
+
+
+Backend:
+
+Convex (for real-time database and API handling)
+
+
+Other Tools:
+
+Figma (for design reference)
+
+Netlify / Localhost for deployment and testing
+
+---
+
+Future Enhancements
+
+Implement shopping cart with checkout flow
+
+Add user authentication for account management
+
+Integrate email notifications for orders
+
+Expand filtering and search functionality for products
+
+---
+📞 Contact
+
+For questions or collaboration, contact:
+Stanley Ibekwe – stanleyibekwe21@gmail.com
